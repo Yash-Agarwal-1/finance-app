@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     Using those tags the user can classify expenditure. We can add graphs depending on the time left.
     We can have the top heading of the app as a total sum of all the values of expenditures of individual
     accounts. We need to pay some serious attention to make the UI really cool XD.
+    Let me know if we want to make the page Im working on part of the mainactivity or put it on a
+    fragment. Won't be much work.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
