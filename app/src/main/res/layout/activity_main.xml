@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:id="@+id/outer_layout">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/amt_spent"
         android:layout_width="316dp"
         android:layout_height="91dp"
         android:fontFamily="@font/abeezee"
@@ -33,10 +34,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.203"
-        app:srcCompat="@drawable/add" />
+        android:src="@drawable/add_img"
+        android:onClick="addAccountView"/>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/add_acc_str"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/abeezee"
@@ -48,53 +50,7 @@
         android:layout_marginStart="10dp"
         app:layout_constraintLeft_toRightOf="@id/add_img"
         app:layout_constraintTop_toTopOf="@id/add_img"
-        app:layout_constraintVertical_bias="0.458" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        app:layout_constraintTop_toBottomOf="@id/textView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:background="@drawable/layout_bg"
-        android:backgroundTint="#117ACA"
-        >
-
-        <ImageView
-            android:layout_width="72dp"
-            android:layout_height="69dp"
-            android:layout_marginStart="16dp"
-            android:src="@drawable/chase_logo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="30dp"
-            android:fontFamily="@font/abeezee"
-            android:text="@string/acc_no_placeholder"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/abeezee"
-            android:text="@string/balance_placeholder"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="20dp"
-            android:layout_marginEnd="20dp"
-            android:textSize="25sp"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintVertical_bias="0.458"
+        android:onClick="addAccountView"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

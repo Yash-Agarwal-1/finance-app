@@ -1,8 +1,12 @@
 package com.example.financeapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,5 +31,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    public void addAccountView(View v){
+        AccountView accountView = new AccountView(this);
+        ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.outer_layout);
+        ConstraintSet set = new ConstraintSet();
+
+        accountView.setId(View.generateViewId());
+        constraintLayout.addView(accountView,0);
+        set.clone(constraintLayout);
+        set.connect(accountView.getId(), ConstraintSet.TOP, constraintLayout.getId(), ConstraintSet.TOP, 60);
+        set.applyTo(constraintLayout);
+        if(accountView.getParent() != null){
+            ((ViewGroup)accountView.getParent()).removeView(accountView);
+        }
+        constraintLayout.addView(accountView);
+
     }
 }
