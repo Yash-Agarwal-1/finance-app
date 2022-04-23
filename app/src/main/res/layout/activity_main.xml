@@ -4,34 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:id="@+id/outer_layout">
 
+    <TextView
+        android:id="@+id/amt_spent"
+        android:layout_width="316dp"
+        android:layout_height="91dp"
+        android:fontFamily="@font/abeezee"
+        android:text="@string/amount_str"
+        android:textColor="#4CAF50"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/add_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.591" />
 
     <ImageView
         android:id="@+id/add_img"
         android:layout_width="41dp"
         android:layout_height="42dp"
+        android:contentDescription="@string/add_img_string"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.116"
+        app:layout_constraintHorizontal_bias="0.108"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.197"
-        app:srcCompat="@drawable/add" />
+        app:layout_constraintVertical_bias="0.203"
+        android:src="@drawable/add_img"
+        android:onClick="addAccountView"/>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/add_acc_str"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="12dp"
         android:fontFamily="@font/abeezee"
         android:text="@string/add_account"
-        android:textColor="@color/black"
+        android:textColor="#000000"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBottomOf="add_"
+        app:layout_constraintBottom_toBottomOf="@+id/add_img"
+        android:layout_marginStart="10dp"
         app:layout_constraintLeft_toRightOf="@id/add_img"
-        app:layout_constraintTop_toTopOf="@id/add_img" />
+        app:layout_constraintTop_toTopOf="@id/add_img"
+        app:layout_constraintVertical_bias="0.458"
+        android:onClick="addAccountView"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
