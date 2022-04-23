@@ -2,6 +2,6 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/abeezee</item>
-        <item>@font/akaya_telivigala</item>
+
     </array>
 </resources>
