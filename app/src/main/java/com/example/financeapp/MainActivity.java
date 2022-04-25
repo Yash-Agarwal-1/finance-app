@@ -3,12 +3,18 @@ package com.example.financeapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
 
     /*
     Planning to make an interface with an add account button to add
@@ -35,18 +41,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void addAccountView(View v){
         AccountView accountView = new AccountView(this);
-        ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.outer_layout);
-        ConstraintSet set = new ConstraintSet();
+        LinearLayout linearLayout = findViewById(R.id.main_layout);
+        linearLayout.addView(accountView,0);
+    }
 
-        accountView.setId(View.generateViewId());
-        constraintLayout.addView(accountView,0);
-        set.clone(constraintLayout);
-        set.connect(accountView.getId(), ConstraintSet.TOP, constraintLayout.getId(), ConstraintSet.TOP, 60);
-        set.applyTo(constraintLayout);
-        if(accountView.getParent() != null){
-            ((ViewGroup)accountView.getParent()).removeView(accountView);
-        }
-        constraintLayout.addView(accountView);
-
+    public void onBankCardClick(View v){
+        Intent intent = new Intent(this, TransactionMain.class);
+        startActivity(intent);
     }
 }

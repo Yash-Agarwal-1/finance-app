@@ -16,41 +16,60 @@
         android:textColor="#4CAF50"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/add_img"
+        app:layout_constraintBottom_toTopOf="@id/main_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.591" />
 
-    <ImageView
-        android:id="@+id/add_img"
-        android:layout_width="41dp"
-        android:layout_height="42dp"
-        android:contentDescription="@string/add_img_string"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.108"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.203"
-        android:src="@drawable/add_img"
-        android:onClick="addAccountView"/>
-
-    <TextView
-        android:id="@+id/add_acc_str"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/abeezee"
-        android:text="@string/add_account"
-        android:textColor="#000000"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/add_img"
-        android:layout_marginStart="10dp"
-        app:layout_constraintLeft_toRightOf="@id/add_img"
-        app:layout_constraintTop_toTopOf="@id/add_img"
-        app:layout_constraintVertical_bias="0.458"
-        android:onClick="addAccountView"/>
+        app:layout_constraintTop_toBottomOf="@id/amt_spent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="vertical"
+        android:id="@+id/main_layout"
+        >
+        <LinearLayout
+            android:id="@+id/add_button_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/amt_spent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:orientation="horizontal"
+            >
+
+            <ImageView
+                android:id="@+id/add_img"
+                android:layout_width="41dp"
+                android:layout_height="42dp"
+                android:contentDescription="@string/add_img_string"
+                android:src="@drawable/add_img"
+                android:layout_marginStart="30dp"
+                android:onClick="addAccountView"/>
+
+            <TextView
+                android:id="@+id/add_acc_str"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/abeezee"
+                android:text="@string/add_account"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginStart="15dp"
+                android:layout_gravity="center_vertical"
+                android:onClick="addAccountView"/>
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="open view"
+            android:onClick="onBankCardClick"
+            />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
