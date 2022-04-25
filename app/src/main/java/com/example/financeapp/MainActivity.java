@@ -49,4 +49,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, TransactionMain.class);
         startActivity(intent);
     }
+
+    public void onStockPageClick(View v){
+        Intent intent = new Intent(this, stockPage.class);
+        startActivity(intent);
+    }
 }
