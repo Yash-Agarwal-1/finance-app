@@ -5,4 +5,5 @@
     <string name="add_img_string">add_img</string>
     <string name="acc_no_placeholder">123456789</string>
     <string name="balance_placeholder">$999.99</string>
+
 </resources>
