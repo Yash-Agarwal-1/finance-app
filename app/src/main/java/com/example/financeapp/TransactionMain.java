@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -29,7 +31,7 @@ public class TransactionMain extends AppCompatActivity {
     private AppDatabase db;
     private ExecutorService executorService;
     private Handler handler;
-    private double acc_balance;
+    private String bankName;
     Context context;
 
     @Override
@@ -42,8 +44,8 @@ public class TransactionMain extends AppCompatActivity {
         transactionAdapter = new TransactionAdapter(transactions);
         layoutManager = new LinearLayoutManager(this);
         Intent intent = getIntent();
-        String str = intent.getStringExtra("bank");
-        db = AppDatabase.getInstance(this, str + "_database");
+        bankName = intent.getStringExtra("bank");
+        db = AppDatabase.getInstance(this, bankName + "_database");
         executorService = Executors.newSingleThreadExecutor();
         handler = new Handler(Looper.getMainLooper());
 
@@ -55,7 +57,7 @@ public class TransactionMain extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, AddTransactionActivity.class);
-                intent.putExtra("bank", str);
+                intent.putExtra("bank", bankName);
                 startActivity(intent);
             }
         });
@@ -90,19 +92,17 @@ public class TransactionMain extends AppCompatActivity {
         }
 
         double expenseAmount = totalAmount-budgetAmount;
-
-        acc_balance = totalAmount;
+        SharedPreferences sharedPreferences = getSharedPreferences("bank_balances", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         TextView balance = findViewById(R.id.balance);
         balance.setText(String.format("$ %.2f", totalAmount));
+        editor.putString(bankName+"_balance", String.format("$ %.2f", totalAmount));
+        editor.apply();
         TextView budget = findViewById(R.id.budget);
         budget.setText(String.format("$ %.2f", budgetAmount));
         TextView expense = findViewById(R.id.expense);
         expense.setText(String.format("$ %.2f", expenseAmount));
 
-    }
-
-    public double getBalance(){
-        return acc_balance;
     }
 
     @Override

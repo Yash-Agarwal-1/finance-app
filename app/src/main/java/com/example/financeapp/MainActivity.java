@@ -26,10 +26,12 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
-    Context context;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
-    Activity activity;
+    private Context context;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    private Activity activity;
+    private AccountView accView;
+    private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         setContentView(R.layout.activity_main);
+        activity = MainActivity.this;
         System.out.println(sharedPreferences.getStringSet("banks", null));
         restoreViews();
     }
@@ -48,47 +51,49 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(20, 10, 0, 10);
-
+        SharedPreferences sharedPreferences1 = getSharedPreferences("bank_balances", MODE_PRIVATE);
         for(String str: s){
             AccountView accountView = new AccountView(this);
             accountView.setLayoutParams(layoutParams);
-            System.out.println(str);
             if(str.equals("chase")){
                 accountView.setBGColor("#117ACA");
                 accountView.setBankPhoto(ResourcesCompat.getDrawable(getResources(),
                         R.drawable.chase_logo, null));
                 accountView.setBankName("chase");
+                accountView.setAmountSpent(sharedPreferences1.getString("chase_balance", ""));
                 linearLayout.addView(accountView);
             }else if(str.equals("boa")){
                 accountView.setBGColor("#09297A");
                 accountView.setBankPhoto(ResourcesCompat.getDrawable(getResources(),
                         R.drawable.boa_logo, null));
                 accountView.setBankName("boa");
+                accountView.setAmountSpent(sharedPreferences1.getString("boa_balance", ""));
                 linearLayout.addView(accountView);
             }else if(str.equals("wells_fargo")){
                 accountView.setBGColor("#FFFF00");
                 accountView.setBankPhoto(ResourcesCompat.getDrawable(getResources(),
                         R.drawable.wells_fargo_logo, null));
                 accountView.setBankName("wells_fargo");
+                accountView.setAmountSpent(sharedPreferences1.getString("wells_fargo_balance", ""));
                 linearLayout.addView(accountView);
             }else if(str.equals("citi")){
                 accountView.setBGColor("#003B70");
                 accountView.setBankPhoto(ResourcesCompat.getDrawable(getResources(),
                         R.drawable.citi_logo, null));
                 accountView.setBankName("citi");
+                accountView.setAmountSpent(sharedPreferences1.getString("citi_balance", ""));
                 linearLayout.addView(accountView);
             }
             accountView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    accView = accountView;
                     Intent intent = new Intent(context, TransactionMain.class);
                     intent.putExtra("bank", str);
-
                     context.startActivity(intent);
                 }
             });
         }
-
     }
 
     public void addAccountView(View v){
@@ -173,9 +178,10 @@ public class MainActivity extends AppCompatActivity {
                 accountView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        accView = accountView;
                         Intent intent = new Intent(context, TransactionMain.class);
                         intent.putExtra("bank", bank);
-                        context.startActivity(intent);
+                        activity.startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
                     }
                 });
                 editor.commit();
@@ -198,5 +204,22 @@ public class MainActivity extends AppCompatActivity {
     public void onStockPageClick(View v){
         Intent intent = new Intent(this, stockPage.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        SharedPreferences sharedPreferences1 = getSharedPreferences("bank_balances", MODE_PRIVATE);
+        LinearLayout linearLayout = findViewById(R.id.main_layout);
+        for(int i = 0; i < linearLayout.getChildCount(); i++){
+            if(!(linearLayout.getChildAt(i) instanceof AccountView)){
+                continue;
+            }
+            AccountView accountView = (AccountView)linearLayout.getChildAt(i);
+            System.out.println(sharedPreferences1.getString(accountView.getBankName()+"_balance", ""));
+            accountView.setAmountSpent(sharedPreferences1.getString(accountView.getBankName()+"_balance", ""));
+        }
+
+
     }
 }
