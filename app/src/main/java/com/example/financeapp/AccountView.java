@@ -97,8 +97,12 @@ public class AccountView extends ConstraintLayout {
     }
 
     public void setAmountSpent(String num){
+        amountSpent = Double.parseDouble(num.substring(2));
         TextView textView = findViewById(R.id.acc_bal);
-        System.out.println("bank name" + bankName);
         textView.setText(num);
+    }
+
+    public double getAmountSpent(){
+        return amountSpent;
     }
 }

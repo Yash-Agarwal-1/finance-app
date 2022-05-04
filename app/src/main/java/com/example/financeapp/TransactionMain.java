@@ -1,6 +1,8 @@
 package com.example.financeapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -26,12 +30,14 @@ import java.util.concurrent.Executors;
 public class TransactionMain extends AppCompatActivity {
 
     private List<Transaction> transactions;
+    private List<Transaction> oldTransactions;
     private TransactionAdapter transactionAdapter;
     private LinearLayoutManager layoutManager;
     private AppDatabase db;
     private ExecutorService executorService;
     private Handler handler;
     private String bankName;
+    private Transaction deletedTransaction;
     Context context;
 
     @Override
@@ -53,6 +59,33 @@ public class TransactionMain extends AppCompatActivity {
         recyclerView.setAdapter(transactionAdapter);
         recyclerView.setLayoutManager(layoutManager);
         ImageButton button = findViewById(R.id.addBtn);
+
+        new ItemTouchHelper(new ItemTouchHelper.
+                SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.
+                    ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();;
+                deleteTransaction(transactions.get(viewHolder.getAdapterPosition()), viewHolder.getAdapterPosition());
+                transactionAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+                Snackbar.make(recyclerView, "Transaction deleted!", Snackbar.LENGTH_LONG).
+                        setAction("UNDO", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        transactions.add(position, deletedTransaction);
+                        transactionAdapter.notifyItemInserted(position);
+                        updateDashboard();
+                    }
+                }).show();
+            }
+        }).attachToRecyclerView(recyclerView);
+
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,6 +136,36 @@ public class TransactionMain extends AppCompatActivity {
         TextView expense = findViewById(R.id.expense);
         expense.setText(String.format("$ %.2f", expenseAmount));
 
+    }
+
+
+
+    private void deleteTransaction(Transaction transaction, int index){
+        deletedTransaction = transaction;
+        oldTransactions = transactions;
+
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                db.transactionDao().delete(transaction);
+                transactions.removeIf(trans -> trans.id == transaction.id);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateDashboard();
+                        showSnackBar();
+                    }
+                });
+            }
+        });
+    }
+
+    private void showSnackBar(){
+//        View view = findViewById(R.id.coordinator);
+//        Snackbar snackbar = Snackbar.make(view, "Transaction deleted!", Snackbar.LENGTH_LONG);
+//        snackbar.setAction("UNDO") {
+//            undoDelete();
+//        }.setA
     }
 
     @Override
