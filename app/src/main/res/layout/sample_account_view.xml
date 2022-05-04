@@ -4,7 +4,7 @@
     android:layout_height="100dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/layout_bg"
-    android:backgroundTint="#000000">
+    android:id="@+id/acc_view_layout">
 
     <ImageView
         android:id="@+id/bank_logo_img"

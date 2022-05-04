@@ -20,7 +20,7 @@ public class TransactionAdapter extends
 
     List<Transaction> transactions;
 
-    public TransactionAdapter(ArrayList<Transaction> transactions){
+    public TransactionAdapter(List<Transaction> transactions){
         super();
         this.transactions = transactions;
     }
@@ -55,6 +55,11 @@ public class TransactionAdapter extends
         return transactions.size();
     }
 
+    public void setData(List<Transaction> transactions){
+        this.transactions = transactions;
+        notifyDataSetChanged();
+    }
+
     public class TransactionHolder extends RecyclerView.ViewHolder{
 
         public TextView label;
@@ -65,6 +70,8 @@ public class TransactionAdapter extends
             this.amount = view.findViewById(R.id.amount);
         }
     }
+
+
 
 
 }

@@ -3,51 +3,196 @@ package com.example.financeapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
+    Context context;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    Activity activity;
 
-    /*
-    Planning to make an interface with an add account button to add
-    multiple bank accounts. Once the add button is pressed a new set of fields open
-    to enter the bank information. The amount of information that might be required
-    is....(account num, initialize amount spent to zero, bank name) do not care about current balance.
-    Only manage the amount spent. We can add images or colors based on color themes of some famous banks.
-    We can organize all the bank cards by creating a custom view and making a listview out of it.
-    The ListView can have an onItemClickListener to see which card was clicked and open the specific
-    crad in a new fragment. Messed up rn by creating the views in main. Will shift later. Want to have
-    something to see for rn. Inside each bank info fragment we can have options to add transaction.
-    We can have some preset tags to classify transactions by. We can also give the user the option to add tags.
-    Using those tags the user can classify expenditure. We can add graphs depending on the time left.
-    We can have the top heading of the app as a total sum of all the values of expenditures of individual
-    accounts. We need to pay some serious attention to make the UI really cool XD.
-    Let me know if we want to make the page Im working on part of the mainactivity or put it on a
-    fragment. Won't be much work.
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
+        sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         setContentView(R.layout.activity_main);
+        System.out.println(sharedPreferences.getStringSet("banks", null));
+        restoreViews();
+    }
+
+    public void restoreViews(){
+        Set<String> s = new HashSet<String>(sharedPreferences.getStringSet("banks", new HashSet<String>()));
+        LinearLayout linearLayout = findViewById(R.id.main_layout);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(20, 10, 0, 10);
+
+        for(String str: s){
+            AccountView accountView = new AccountView(this);
+            accountView.setLayoutParams(layoutParams);
+            System.out.println(str);
+            if(str.equals("chase")){
+                accountView.setBGColor("#117ACA");
+                accountView.setBankPhoto(ResourcesCompat.getDrawable(getResources(),
+                        R.drawable.chase_logo, null));
+                accountView.setBankName("chase");
+                linearLayout.addView(accountView);
+            }else if(str.equals("boa")){
+                accountView.setBGColor("#09297A");
+                accountView.setBankPhoto(ResourcesCompat.getDrawable(getResources(),
+                        R.drawable.boa_logo, null));
+                accountView.setBankName("boa");
+                linearLayout.addView(accountView);
+            }else if(str.equals("wells_fargo")){
+                accountView.setBGColor("#FFFF00");
+                accountView.setBankPhoto(ResourcesCompat.getDrawable(getResources(),
+                        R.drawable.wells_fargo_logo, null));
+                accountView.setBankName("wells_fargo");
+                linearLayout.addView(accountView);
+            }else if(str.equals("citi")){
+                accountView.setBGColor("#003B70");
+                accountView.setBankPhoto(ResourcesCompat.getDrawable(getResources(),
+                        R.drawable.citi_logo, null));
+                accountView.setBankName("citi");
+                linearLayout.addView(accountView);
+            }
+            accountView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, TransactionMain.class);
+                    intent.putExtra("bank", str);
+
+                    context.startActivity(intent);
+                }
+            });
+        }
+
     }
 
     public void addAccountView(View v){
-        AccountView accountView = new AccountView(this);
+        ArrayList<String> spinnerArray = new ArrayList<String>();
+        spinnerArray.add("SELECT A BANK");
+        spinnerArray.add("CHASE");
+        spinnerArray.add("BANK OF AMERICA");
+        spinnerArray.add("WELLS FARGO");
+        spinnerArray.add("CITI");
+
+        Spinner spinner = new Spinner(this);
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, spinnerArray);
+        spinner.setAdapter(spinnerArrayAdapter);
+
         LinearLayout linearLayout = findViewById(R.id.main_layout);
-        linearLayout.addView(accountView,0);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(20, 10, 0, 10);
+        spinner.setLayoutParams(layoutParams);
+        linearLayout.addView(spinner,1);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String bank = spinner.getSelectedItem().toString();
+                AccountView accountView = new AccountView(context);
+                Set<String> s = new HashSet<String>(sharedPreferences.getStringSet("banks", new HashSet<String>()));
+                accountView.setLayoutParams(layoutParams);
+                if(i == 1){
+                    if(s.contains("chase")){
+                        sendToast("chase");
+                        return;
+                    }
+                    accountView.setBGColor("#117ACA");
+                    accountView.setBankPhoto(ResourcesCompat.getDrawable(getResources(),
+                            R.drawable.chase_logo, null));
+                    linearLayout.removeView(spinner);
+                    s.add("chase");
+                    System.out.println("printing after adding chase" + s);
+                    editor.putStringSet("banks", s);
+                    accountView.setBankName("chase");
+                    linearLayout.addView(accountView,1);
+                }else if(i == 2) {
+                    if(s.contains("boa")){
+                        sendToast("BANK OF AMERICA");
+                        return;
+                    }
+                    accountView.setBGColor("#09297A");
+                    accountView.setBankPhoto(ResourcesCompat.getDrawable(getResources(),
+                            R.drawable.boa_logo, null));
+                    linearLayout.removeView(spinner);
+                    s.add("boa");
+                    accountView.setBankName("boa");
+                    editor.putStringSet("banks", s);
+                    linearLayout.addView(accountView,1);
+                }else if(i == 3 ){
+                    if(s.contains("wells_fargo")){
+                        sendToast("WELLS FARGO");
+                        return;
+                    }
+                    accountView.setBGColor("#FFFF00");
+                    accountView.setBankPhoto(ResourcesCompat.getDrawable(getResources(),
+                            R.drawable.wells_fargo_logo, null));
+                    linearLayout.removeView(spinner);
+                    s.add("wells_fargo");
+                    accountView.setBankName("wells_fargo");
+                    editor.putStringSet("banks", s);
+                    linearLayout.addView(accountView,1);
+                }else if(i == 4 ) {
+                    if(s.contains("citi")){
+                        sendToast("CITI");
+                        return;
+                    }
+                    accountView.setBGColor("#003B70");
+                    accountView.setBankPhoto(ResourcesCompat.getDrawable(getResources(),
+                            R.drawable.citi_logo, null));
+                    linearLayout.removeView(spinner);
+                    s.add("citi");
+                    accountView.setBankName("citi");
+                    editor.putStringSet("banks", s);
+                    linearLayout.addView(accountView, 1);
+                }
+                accountView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(context, TransactionMain.class);
+                        intent.putExtra("bank", bank);
+                        context.startActivity(intent);
+                    }
+                });
+                editor.commit();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
     }
 
-    public void onBankCardClick(View v){
-        Intent intent = new Intent(this, TransactionMain.class);
-        startActivity(intent);
+    public void sendToast(String name){
+        CharSequence charSequence = name.toUpperCase(Locale.ROOT) + " ALREADY EXISTS!";
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, charSequence, duration);
+        toast.show();
     }
 
     public void onStockPageClick(View v){
