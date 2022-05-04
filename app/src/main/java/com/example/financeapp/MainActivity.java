@@ -194,4 +194,9 @@ public class MainActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(context, charSequence, duration);
         toast.show();
     }
+
+    public void onStockPageClick(View v){
+        Intent intent = new Intent(this, stockPage.class);
+        startActivity(intent);
+    }
 }
