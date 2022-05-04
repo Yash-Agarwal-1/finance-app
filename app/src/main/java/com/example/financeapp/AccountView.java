@@ -32,7 +32,7 @@ public class AccountView extends ConstraintLayout {
     private String color;
     private Drawable photoId;
     private int accountNumber;
-    private int amountSpent;
+    private double amountSpent;
     private String bankName;
     private final ImageView imageView;
     private final TextView textView;
@@ -96,16 +96,9 @@ public class AccountView extends ConstraintLayout {
         return this.accountNumber;
     }
 
-    public void setAmountSpent(int num){
-        this.amountSpent = num;
+    public void setAmountSpent(String num){
+        TextView textView = findViewById(R.id.acc_bal);
+        System.out.println("bank name" + bankName);
+        textView.setText(num);
     }
-
-    public int getAmountSpent(int num){
-        return this.amountSpent;
-    }
-
-    public void updateBalance(){
-
-    }
-
 }
