@@ -4,5 +4,8 @@
         <attr name="exampleDimension" format="dimension" />
         <attr name="exampleColor" format="color" />
         <attr name="exampleDrawable" format="color|reference" />
+        <attr name="image" format="reference"/>
+        <attr name="text" format="string"/>
+        <attr name="backgroundColor" format="color"/>
     </declare-styleable>
 </resources>

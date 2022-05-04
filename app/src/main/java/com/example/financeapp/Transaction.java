@@ -1,13 +1,22 @@
 package com.example.financeapp;
 
+
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "transactions")
 public class Transaction {
 
-    private String label;
-    private double amount;
-
-    public Transaction(String label, double amount){
+    @PrimaryKey(autoGenerate = true)
+    int id;
+    String label;
+    double amount;
+    String description;
+    public Transaction(int id, String label, double amount, String description){
+        this.id = id;
         this.label = label;
         this.amount = amount;
+        this.description = description;
     }
 
     public double getAmount() {
