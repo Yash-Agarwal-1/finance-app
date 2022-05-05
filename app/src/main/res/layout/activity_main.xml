@@ -103,7 +103,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
-            android:text="COUPONS"
+            android:text="HELP"
 
             />
 
