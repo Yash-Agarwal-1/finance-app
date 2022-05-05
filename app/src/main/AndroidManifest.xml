@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FinanceApp">
         <activity
+            android:name=".criticalInfo"
+            android:exported="false" />
+        <activity
             android:name=".stockInformation"
             android:exported="false" />
         <activity

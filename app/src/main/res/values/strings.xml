@@ -8,4 +8,14 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
+    <string name="open">OPEN: </string>
+    <string name="high">HIGH: </string>
+    <string name="low">LOW: </string>
+    <string name="close">CLOSE: </string>
+    <string name="volume">VOLUME: </string>
+    <string name="million">M</string>
+
+    <string name="critical_info">CRITICAL INFO</string>
+
+
 </resources>
