@@ -13,6 +13,7 @@
         <entry key="app/src/main/res/drawable/layout_bg.xml" value="0.25" />
         <entry key="app/src/main/res/font/abeezee.xml" value="0.27447916666666666" />
         <entry key="app/src/main/res/layout/activity_add_transaction.xml" value="0.24427083333333333" />
+        <entry key="app/src/main/res/layout/activity_detailed.xml" value="0.22056159420289856" />
         <entry key="app/src/main/res/layout/activity_ind_stock_page.xml" value="0.22056159420289856" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25583546956380215" />
         <entry key="app/src/main/res/layout/activity_transaction_main.xml" value="0.23020833333333332" />
