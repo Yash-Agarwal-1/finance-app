@@ -15,6 +15,13 @@
             android:name=".criticalInfo"
             android:exported="false" />
         <activity
+            android:name=".HelpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailedActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ind_stock_page"
             android:name=".stockInformation"
             android:exported="false" />
         <activity

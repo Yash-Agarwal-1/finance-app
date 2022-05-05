@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HelpActivity"
+    android:background="@color/teal_200"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/help_str1"
+        style="@style/help_text"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/help_str2"
+        style="@style/help_text"
+
+        />
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="600dp"
+        android:src="@drawable/ss1"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/help_str3"
+        style="@style/help_text"
+
+        />
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="600dp"
+        android:src="@drawable/ss2"
+        />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/help_str4"
+            style="@style/help_text"
+            />
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="600dp"
+            android:src="@drawable/ss3"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/help_str5"
+            style="@style/help_text"
+
+            />
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="600dp"
+            android:src="@drawable/ss4"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/help_str6"
+            style="@style/help_text"
+
+            />
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="600dp"
+            android:src="@drawable/ss6"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/help_str7"
+            style="@style/help_text"
+
+            />
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="600dp"
+            android:src="@drawable/ss7"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/help_str8"
+            style="@style/help_text"
+
+            />
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="600dp"
+            android:src="@drawable/ss9"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/help_str9"
+            style="@style/help_text"
+
+            />
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="600dp"
+            android:src="@drawable/ss10"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/help_str10"
+            style="@style/help_text"
+
+            />
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="600dp"
+            android:src="@drawable/ss11"
+            />
+
+
+    </LinearLayout>
+
+</ScrollView>

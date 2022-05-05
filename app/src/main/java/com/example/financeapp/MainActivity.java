@@ -11,12 +11,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -41,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         editor = sharedPreferences.edit();
         setContentView(R.layout.activity_main);
         activity = MainActivity.this;
-        System.out.println(sharedPreferences.getStringSet("banks", null));
         restoreViews();
     }
 
@@ -50,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout linearLayout = findViewById(R.id.main_layout);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(20, 10, 0, 10);
+        layoutParams.setMargins(0, 10, 0, 0);
+        layoutParams.gravity = Gravity.CENTER;
         SharedPreferences sharedPreferences1 = getSharedPreferences("bank_balances", MODE_PRIVATE);
         for(String str: s){
             AccountView accountView = new AccountView(this);
@@ -60,28 +62,28 @@ public class MainActivity extends AppCompatActivity {
                 accountView.setBankPhoto(ResourcesCompat.getDrawable(getResources(),
                         R.drawable.chase_logo, null));
                 accountView.setBankName("chase");
-                accountView.setAmountSpent(sharedPreferences1.getString("chase_balance", ""));
+                accountView.setAmountSpent(sharedPreferences1.getString("chase_balance", "$0.00"));
                 linearLayout.addView(accountView);
             }else if(str.equals("boa")){
                 accountView.setBGColor("#09297A");
                 accountView.setBankPhoto(ResourcesCompat.getDrawable(getResources(),
                         R.drawable.boa_logo, null));
                 accountView.setBankName("boa");
-                accountView.setAmountSpent(sharedPreferences1.getString("boa_balance", ""));
+                accountView.setAmountSpent(sharedPreferences1.getString("boa_balance", "$0.00"));
                 linearLayout.addView(accountView);
             }else if(str.equals("wells_fargo")){
                 accountView.setBGColor("#FFFF00");
                 accountView.setBankPhoto(ResourcesCompat.getDrawable(getResources(),
                         R.drawable.wells_fargo_logo, null));
                 accountView.setBankName("wells_fargo");
-                accountView.setAmountSpent(sharedPreferences1.getString("wells_fargo_balance", ""));
+                accountView.setAmountSpent(sharedPreferences1.getString("wells_fargo_balance", "$0.00"));
                 linearLayout.addView(accountView);
             }else if(str.equals("citi")){
                 accountView.setBGColor("#003B70");
                 accountView.setBankPhoto(ResourcesCompat.getDrawable(getResources(),
                         R.drawable.citi_logo, null));
                 accountView.setBankName("citi");
-                accountView.setAmountSpent(sharedPreferences1.getString("citi_balance", ""));
+                accountView.setAmountSpent(sharedPreferences1.getString("citi_balance", "$0.00"));
                 linearLayout.addView(accountView);
             }
             accountView.setOnClickListener(new View.OnClickListener() {
@@ -94,9 +96,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+        updateTotal();
     }
 
     public void addAccountView(View v){
+        if(checkSpinnerExists()){
+            return;
+        }
         ArrayList<String> spinnerArray = new ArrayList<String>();
         spinnerArray.add("SELECT A BANK");
         spinnerArray.add("CHASE");
@@ -105,15 +111,18 @@ public class MainActivity extends AppCompatActivity {
         spinnerArray.add("CITI");
 
         Spinner spinner = new Spinner(this);
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, spinnerArray);
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,
+                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, spinnerArray);
         spinner.setAdapter(spinnerArrayAdapter);
 
         LinearLayout linearLayout = findViewById(R.id.main_layout);
+
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(20, 10, 0, 10);
+        layoutParams.setMargins(0, 10, 0, 0);
+        layoutParams.gravity = Gravity.CENTER;
         spinner.setLayoutParams(layoutParams);
-        linearLayout.addView(spinner,1);
+        linearLayout.addView(spinner,0);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -123,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
                 accountView.setLayoutParams(layoutParams);
                 if(i == 1){
                     if(s.contains("chase")){
+                        linearLayout.removeView(spinner);
                         sendToast("chase");
                         return;
                     }
@@ -131,12 +141,13 @@ public class MainActivity extends AppCompatActivity {
                             R.drawable.chase_logo, null));
                     linearLayout.removeView(spinner);
                     s.add("chase");
-                    System.out.println("printing after adding chase" + s);
                     editor.putStringSet("banks", s);
                     accountView.setBankName("chase");
-                    linearLayout.addView(accountView,1);
+                    accountView.setAmountSpent("$0.0");
+                    linearLayout.addView(accountView);
                 }else if(i == 2) {
                     if(s.contains("boa")){
+                        linearLayout.removeView(spinner);
                         sendToast("BANK OF AMERICA");
                         return;
                     }
@@ -147,9 +158,11 @@ public class MainActivity extends AppCompatActivity {
                     s.add("boa");
                     accountView.setBankName("boa");
                     editor.putStringSet("banks", s);
-                    linearLayout.addView(accountView,1);
+                    accountView.setAmountSpent("$0.0");
+                    linearLayout.addView(accountView);
                 }else if(i == 3 ){
                     if(s.contains("wells_fargo")){
+                        linearLayout.removeView(spinner);
                         sendToast("WELLS FARGO");
                         return;
                     }
@@ -160,9 +173,11 @@ public class MainActivity extends AppCompatActivity {
                     s.add("wells_fargo");
                     accountView.setBankName("wells_fargo");
                     editor.putStringSet("banks", s);
-                    linearLayout.addView(accountView,1);
+                    accountView.setAmountSpent("$0.0");
+                    linearLayout.addView(accountView);
                 }else if(i == 4 ) {
                     if(s.contains("citi")){
+                        linearLayout.removeView(spinner);
                         sendToast("CITI");
                         return;
                     }
@@ -173,7 +188,8 @@ public class MainActivity extends AppCompatActivity {
                     s.add("citi");
                     accountView.setBankName("citi");
                     editor.putStringSet("banks", s);
-                    linearLayout.addView(accountView, 1);
+                    accountView.setAmountSpent("$0.0");
+                    linearLayout.addView(accountView);
                 }
                 accountView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -206,6 +222,34 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onHelpPageClick(View v){
+        Intent intent = new Intent(this, HelpActivity.class);
+        startActivity(intent);
+    }
+
+    public boolean checkSpinnerExists(){
+        LinearLayout linearLayout = findViewById(R.id.main_layout);
+        for(int i = 0; i < linearLayout.getChildCount(); i++ ){
+            if(linearLayout.getChildAt(i) instanceof Spinner){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void updateTotal(){
+        double sum = 0.0;
+        LinearLayout linearLayout = findViewById(R.id.main_layout);
+        for(int i = 0; i < linearLayout.getChildCount(); i++ ){
+            if(linearLayout.getChildAt(i) instanceof AccountView){
+                AccountView accountView = (AccountView) linearLayout.getChildAt(i);
+                sum += accountView.getAmountSpent();
+            }
+        }
+        TextView textView = findViewById(R.id.amt_spent);
+        textView.setText("ACCOUNTS: "+sum);
+    }
+
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -216,10 +260,9 @@ public class MainActivity extends AppCompatActivity {
                 continue;
             }
             AccountView accountView = (AccountView)linearLayout.getChildAt(i);
-            System.out.println(sharedPreferences1.getString(accountView.getBankName()+"_balance", ""));
-            accountView.setAmountSpent(sharedPreferences1.getString(accountView.getBankName()+"_balance", ""));
+            accountView.setAmountSpent(sharedPreferences1.getString(accountView.getBankName()+"_balance", "$0.00"));
         }
-
+        updateTotal();
 
     }
 }
