@@ -39,11 +39,7 @@ public class stockInformation extends AppCompatActivity {
         TextView volume_of_stock = findViewById(R.id.volume);
         volume_of_stock.setText(volume);
 
-
-
-
-
-
-
     }
+
+
 }
