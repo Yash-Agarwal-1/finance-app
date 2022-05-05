@@ -4,10 +4,16 @@
         <item name="android:background">@color/gray_400</item>
         <item name="exampleColor">@color/light_blue_400</item>
     </style>
+
     <style name="FilledBoxColor" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/green</item>
         <item name="hintTextColor">@color/green</item>
         <!-- The color of the label in all other text field states (such as resting and disabled) -->
         <item name="android:textColorHint">@color/purple_200</item>
+    </style>
+
+    <style name="Widget.Theme.FinanceApp.ButtonBar.Fullscreen" parent="">
+        <item name="android:background">@color/black_overlay</item>
+        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>
 </resources>
