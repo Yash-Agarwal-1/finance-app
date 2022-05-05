@@ -11,7 +11,6 @@
     <string name="citi">citi</string>
     <string name="trans_deleted">Transaction deleted!</string>
     <string name="bank_balance">bank_balances</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_help">HelpActivity</string>
     <string name="large_text">
@@ -124,5 +123,17 @@
     <string name="help_str10">The app does not allow you to add multiple accounts of the same
     bank, since it is atypical for a person to hold multiple accounts under the same name. If you
     try adding the bank, you get a popup.</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="open">OPEN: </string>
+    <string name="high">HIGH: </string>
+    <string name="low">LOW: </string>
+    <string name="close">CLOSE: </string>
+    <string name="volume">VOLUME: </string>
+    <string name="million">M</string>
+
+    <string name="critical_info">CRITICAL INFO</string>
+
 
 </resources>

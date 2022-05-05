@@ -14,19 +14,16 @@
         <entry key="app/src/main/res/font/abeezee.xml" value="0.27447916666666666" />
         <entry key="app/src/main/res/layout/activity_add_transaction.xml" value="0.24427083333333333" />
         <entry key="app/src/main/res/layout/activity_detailed.xml" value="0.22056159420289856" />
-        <entry key="app/src/main/res/layout/activity_help.xml" value="0.1917562724014337" />
         <entry key="app/src/main/res/layout/activity_ind_stock_page.xml" value="0.22056159420289856" />
+
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25583546956380215" />
+        <entry key="app/src/main/res/layout/activity_stock_information.xml" value="0.47663726806640616" />
         <entry key="app/src/main/res/layout/activity_transaction_main.xml" value="0.23020833333333332" />
-        <entry key="app/src/main/res/layout/bank_card_layout_bg.xml" value="0.22056159420289856" />
-        <entry key="app/src/main/res/layout/content_scrolling.xml" value="0.22056159420289856" />
-        <entry key="app/src/main/res/layout/fragment_nav.xml" value="0.22056159420289856" />
         <entry key="app/src/main/res/layout/fragment_transaction_main.xml" value="0.24427083333333333" />
         <entry key="app/src/main/res/layout/layout_bg.xml" value="0.23641304347826086" />
         <entry key="app/src/main/res/layout/sample_account_view.xml" value="0.23641304347826086" />
         <entry key="app/src/main/res/layout/transaction_layout.xml" value="0.28527980535279807" />
         <entry key="app/src/main/res/layout/transaction_main_layout.xml" value="0.24427083333333333" />
-        <entry key="app/src/main/res/menu/menu_help.xml" value="0.24427083333333333" />
       </map>
     </option>
   </component>
