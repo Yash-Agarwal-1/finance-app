@@ -138,9 +138,13 @@
 
     <string name="stock_page_title">STOCKS</string>
 
+
     <string name="critical_info">CRITICAL INFO</string>
     <string name="find_ticker_button">FIND TICKER</string>
 
+
+
+    <string name="share">SHARE</string>
 
 
 
