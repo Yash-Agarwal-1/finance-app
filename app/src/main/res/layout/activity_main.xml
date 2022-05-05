@@ -105,7 +105,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:text="COUPONS"
-
+            android:onClick="onHelpPageClick"
             />
 
     </LinearLayout>

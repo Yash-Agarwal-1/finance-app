@@ -22,6 +22,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import java.util.Locale;
+
 /**
  * This file is to design the view for the adding the transactions and all the tags
  * Need to use a listview and array adapter or might have to create a custom ArrayAdapter
@@ -90,6 +92,13 @@ public class AccountView extends ConstraintLayout {
 
     public void setBankName(String bankName) {
         this.bankName = bankName;
+        if(bankName.equals(getContext().getString(R.string.wells))){
+            textView.setText("WELLS FARGO");
+        }else if(bankName.equals(getContext().getString(R.string.boa))){
+            textView.setText("BANK OF AMERICA");
+        }else {
+            textView.setText(bankName.toUpperCase(Locale.ROOT));
+        }
     }
 
     public int getAccountNumber(int num){
