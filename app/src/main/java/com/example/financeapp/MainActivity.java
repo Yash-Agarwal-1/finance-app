@@ -247,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         TextView textView = findViewById(R.id.amt_spent);
-        textView.setText("ACCOUNTS: "+sum);
+        textView.setText("TOTAL: "+sum);
     }
 
     @Override

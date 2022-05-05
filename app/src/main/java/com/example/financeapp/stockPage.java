@@ -57,6 +57,11 @@ public class stockPage extends AppCompatActivity {
         new TickerFinder().execute();
     }
 
+    public void goHome(View view){
+        Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);
+    }
+
 
     public void one_min(View view){
         time = 1;
