@@ -73,7 +73,7 @@ public class TransactionMain extends AppCompatActivity {
                 int position = viewHolder.getAdapterPosition();;
                 deleteTransaction(transactions.get(viewHolder.getAdapterPosition()), viewHolder.getAdapterPosition());
                 transactionAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
-                Snackbar.make(recyclerView, "Transaction deleted!", Snackbar.LENGTH_LONG).
+                Snackbar.make(recyclerView, getString(R.string.trans_deleted), Snackbar.LENGTH_LONG).
                         setAction("UNDO", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -125,7 +125,7 @@ public class TransactionMain extends AppCompatActivity {
         }
 
         double expenseAmount = totalAmount-budgetAmount;
-        SharedPreferences sharedPreferences = getSharedPreferences("bank_balances", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.bank_balance), MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         TextView balance = findViewById(R.id.balance);
         balance.setText(String.format("$ %.2f", totalAmount));
@@ -153,19 +153,10 @@ public class TransactionMain extends AppCompatActivity {
                     @Override
                     public void run() {
                         updateDashboard();
-                        showSnackBar();
                     }
                 });
             }
         });
-    }
-
-    private void showSnackBar(){
-//        View view = findViewById(R.id.coordinator);
-//        Snackbar snackbar = Snackbar.make(view, "Transaction deleted!", Snackbar.LENGTH_LONG);
-//        snackbar.setAction("UNDO") {
-//            undoDelete();
-//        }.setA
     }
 
     @Override

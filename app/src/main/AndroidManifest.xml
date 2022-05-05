@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FinanceApp">
         <activity
+            android:name=".DetailedActivity"
+            android:exported="false" />
+        <activity
             android:name=".ind_stock_page"
             android:exported="false" />
         <activity

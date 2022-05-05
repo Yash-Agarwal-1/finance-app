@@ -5,5 +5,10 @@
     <string name="add_img_string">add_img</string>
     <string name="acc_no_placeholder">123456789</string>
     <string name="balance_placeholder">$999.99</string>
-
+    <string name="chase">chase</string>
+    <string name="wells">wells_fargo</string>
+    <string name="boa">bank_of_america</string>
+    <string name="citi">citi</string>
+    <string name="trans_deleted">Transaction deleted!</string>
+    <string name="bank_balance">bank_balances</string>
 </resources>
