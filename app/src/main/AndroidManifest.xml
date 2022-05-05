@@ -3,7 +3,12 @@
     package="com.example.financeapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
+
+    //commit
+
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
